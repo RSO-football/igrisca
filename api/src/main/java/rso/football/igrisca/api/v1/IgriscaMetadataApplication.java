@@ -5,4 +5,5 @@ import javax.ws.rs.core.Application;
 
 @ApplicationPath("/v1")
 public class IgriscaMetadataApplication extends Application {
+
 }

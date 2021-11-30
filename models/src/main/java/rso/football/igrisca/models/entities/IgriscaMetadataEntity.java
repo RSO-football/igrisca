@@ -3,10 +3,10 @@ package rso.football.igrisca.models.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "igralci_metadata")
+@Table(name = "igrisca_metadata")
 @NamedQueries(value =
         {
-                @NamedQuery(name = "IgralciMetadataEntity.getAll",
+                @NamedQuery(name = "IgriscaMetadataEntity.getAll",
                         query = "SELECT igrisce FROM IgriscaMetadataEntity igrisce")
         })
 public class IgriscaMetadataEntity {
