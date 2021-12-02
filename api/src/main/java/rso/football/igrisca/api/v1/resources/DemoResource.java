@@ -33,10 +33,4 @@ public class DemoResource {
         return Response.status(Response.Status.OK).entity(restProperties.getBroken()).build();
     }
 
-//    @GET
-//    @Path("break")
-//    public Response testHealth(){
-//        restProperties.setBroken(true);
-//        return Response.status(Response.Status.OK).build();
-//    }
 }
