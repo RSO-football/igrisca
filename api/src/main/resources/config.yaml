@@ -12,5 +12,15 @@ kumuluzee:
       connection-url: jdbc:postgresql://localhost:5432/igrisca
       username: postgres
       password: postgres
+  health:
+    checks:
+      data-source-health-check:
+        type: liveness
+        jndi-name: jdbc/IgriscaMetadataDS
+    metrics:
+      web-instrumentation:
+        - name: igrisca-endpoint
+          url-pattern: /v1/igrisca/*
 rest-properties:
   maintenance-mode: false
+  broken: false

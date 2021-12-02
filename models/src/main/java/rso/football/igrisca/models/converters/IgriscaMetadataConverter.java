@@ -9,7 +9,8 @@ public class IgriscaMetadataConverter {
         IgriscaMetadata dto = new IgriscaMetadata();
         dto.setIgrisceId(entity.getId());
         dto.setName(entity.getName());
-        dto.setBooked(entity.isBooked());
+        dto.setLongitude(entity.getLongitude());
+        dto.setLatitude(entity.getLatitude());
 
         return dto;
     }
@@ -17,7 +18,8 @@ public class IgriscaMetadataConverter {
     public static IgriscaMetadataEntity toEntity(IgriscaMetadata dto){
         IgriscaMetadataEntity entity = new IgriscaMetadataEntity();
         entity.setName(dto.getName());
-        entity.setBooked(dto.isBooked());
+        entity.setLongitude(dto.getLongitude());
+        entity.setLatitude(dto.getLatitude());
 
         return entity;
     }

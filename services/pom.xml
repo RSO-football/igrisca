@@ -44,6 +44,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.kumuluz.ee.metrics</groupId>
+            <artifactId>kumuluzee-metrics-core</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20190722</version>
@@ -52,6 +57,12 @@
         <dependency>
             <groupId>rso.football</groupId>
             <artifactId>igrisca-models</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.microprofile.metrics</groupId>
+            <artifactId>microprofile-metrics-api</artifactId>
+            <version>2.3.2</version>
         </dependency>
 
     </dependencies>

@@ -18,8 +18,11 @@ public class IgriscaMetadataEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "booked")
-    private boolean booked;
+    @Column(name = "longitude")
+    private double longitude;
+
+    @Column(name = "latitude")
+    private double latitude;
 
     public Integer getId() {
         return id;
@@ -37,11 +40,19 @@ public class IgriscaMetadataEntity {
         this.name = name;
     }
 
-    public boolean isBooked() {
-        return booked;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setBooked(boolean booked) {
-        this.booked = booked;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 }

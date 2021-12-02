@@ -2,6 +2,7 @@ package rso.football.igrisca.services.beans;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import rso.football.igrisca.lib.IgriscaMetadata;
 import rso.football.igrisca.models.converters.IgriscaMetadataConverter;
 import rso.football.igrisca.models.entities.IgriscaMetadataEntity;
@@ -33,6 +34,7 @@ public class IgriscaMetadataBean {
         return resultList.stream().map(IgriscaMetadataConverter::toDto).collect(Collectors.toList());
     }
 
+    @Timed
     public List<IgriscaMetadata> getIgriscaMetadataFilter(UriInfo uriInfo) {
 
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery()).defaultOffset(0)

@@ -1,1 +1,1 @@
-INSERT INTO igrisca_metadata (name, booked) VALUES ('Smarje', false);
+INSERT INTO igrisca_metadata (name, longitude, latitude) VALUES ('Smarje', 46.22722, 15.51917);
