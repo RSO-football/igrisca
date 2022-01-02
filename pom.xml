@@ -24,6 +24,7 @@
         <kumuluzee-health.version>2.4.2</kumuluzee-health.version>
         <kumuluzee-metrics.version>2.3.0</kumuluzee-metrics.version>
         <kumuluzee-config-mp.version>1.4.1</kumuluzee-config-mp.version>
+        <kumuluzee-cors.version>1.0.4</kumuluzee-cors.version>
 
         <postgresql.version>42.3.0</postgresql.version>
     </properties>
@@ -62,8 +63,11 @@
                 <version>${kumuluzee-config-mp.version}</version>
             </dependency>
 
-
-
+            <dependency>
+                <groupId>com.kumuluz.ee.cors</groupId>
+                <artifactId>kumuluzee-cors</artifactId>
+                <version>${kumuluzee-cors.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.postgresql</groupId>

@@ -1,5 +1,6 @@
 package rso.football.igrisca.api.v1.resources;
 
+import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import rso.football.igrisca.lib.IgriscaMetadata;
 import rso.football.igrisca.services.beans.IgriscaMetadataBean;
 
@@ -17,6 +18,7 @@ import java.util.logging.Logger;
 @Path("/igrisca")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@CrossOrigin(supportedMethods = "GET, POST, DELETE, PUT, HEAD, OPTIONS")
 public class IgriscaMetadataResource {
     
     private Logger log = Logger.getLogger(IgriscaMetadataResource.class.getName());
