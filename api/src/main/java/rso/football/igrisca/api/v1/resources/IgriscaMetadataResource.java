@@ -36,6 +36,15 @@ public class IgriscaMetadataResource {
     }
 
     @GET
+    @Path("/igriscaId")
+    public Response getTrenerjiIdMetadata() {
+
+        String trenerjiId = igriscaMetadataBean.getIgriscaIdMetadata();
+
+        return Response.status(Response.Status.OK).entity(trenerjiId).build();
+    }
+
+    @GET
     @Path("/{igriscaMetadataId}")
     public Response getIgriscaMetadata(@PathParam("igriscaMetadataId") Integer igriscaMetadataId) {
 

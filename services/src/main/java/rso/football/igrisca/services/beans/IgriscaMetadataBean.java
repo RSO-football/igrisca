@@ -44,6 +44,20 @@ public class IgriscaMetadataBean {
                 .map(IgriscaMetadataConverter::toDto).collect(Collectors.toList());
     }
 
+    public String getIgriscaIdMetadata() {
+        List<IgriscaMetadata> igriscaMetadata = getIgriscaMetadata();
+
+        String result = "";
+        for (IgriscaMetadata u : igriscaMetadata){
+            result += u.getIgrisceId()+",";
+        }
+        if (result.length() > 0){
+            result = result.substring(0, result.length() - 1);
+        }
+
+        return result;
+    }
+
     public IgriscaMetadata getIgriscaMetadata(Integer id) {
 
         IgriscaMetadataEntity IgriscaMetadataEntity = em.find(IgriscaMetadataEntity.class, id);

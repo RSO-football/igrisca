@@ -13,7 +13,7 @@ spec:
         app: igrisca
     spec:
       containers:
-        - image: ts4894/igrisca:2021-12-03-01-05-40
+        - image: ts4894/igrisca:2022-01-02-22-15-35
           name: igrisca
           # tu moraš dati pravo bazo (postres baza je se mi zdi; ne bo cez elephantSQL)
           env:
