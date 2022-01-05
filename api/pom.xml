@@ -43,6 +43,16 @@
         </dependency>
 
         <dependency>
+            <groupId>com.kumuluz.ee.openapi</groupId>
+            <artifactId>kumuluzee-openapi-mp</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.kumuluz.ee.openapi</groupId>
+            <artifactId>kumuluzee-openapi-mp-ui</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>rso.football</groupId>
             <artifactId>igrisca-services</artifactId>
         </dependency>
