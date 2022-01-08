@@ -2,6 +2,7 @@ package rso.football.igrisca.services.beans;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
+import org.eclipse.microprofile.metrics.annotation.Metered;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import rso.football.igrisca.lib.IgriscaMetadata;
 import rso.football.igrisca.models.converters.IgriscaMetadataConverter;
@@ -34,7 +35,7 @@ public class IgriscaMetadataBean {
         return resultList.stream().map(IgriscaMetadataConverter::toDto).collect(Collectors.toList());
     }
 
-    @Timed
+    @Timed(name = "get_igrisca_metadata_filter")
     public List<IgriscaMetadata> getIgriscaMetadataFilter(UriInfo uriInfo) {
 
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery()).defaultOffset(0)
@@ -44,6 +45,7 @@ public class IgriscaMetadataBean {
                 .map(IgriscaMetadataConverter::toDto).collect(Collectors.toList());
     }
 
+    @Metered(name = "get-igrisca-id-metadata")
     public String getIgriscaIdMetadata() {
         List<IgriscaMetadata> igriscaMetadata = getIgriscaMetadata();
 
@@ -58,6 +60,7 @@ public class IgriscaMetadataBean {
         return result;
     }
 
+    @Metered(name = "get-one-igrisce")
     public IgriscaMetadata getIgriscaMetadata(Integer id) {
 
         IgriscaMetadataEntity IgriscaMetadataEntity = em.find(IgriscaMetadataEntity.class, id);
@@ -71,6 +74,7 @@ public class IgriscaMetadataBean {
         return IgriscaMetadata;
     }
 
+    @Metered(name = "create_igrisce")
     public IgriscaMetadata createIgriscaMetadata(IgriscaMetadata IgriscaMetadata) {
 
         IgriscaMetadataEntity IgriscaMetadataEntity = IgriscaMetadataConverter.toEntity(IgriscaMetadata);
@@ -91,6 +95,7 @@ public class IgriscaMetadataBean {
         return IgriscaMetadataConverter.toDto(IgriscaMetadataEntity);
     }
 
+    @Metered(name = "update_igrisce")
     public IgriscaMetadata putIgriscaMetadata(Integer id, IgriscaMetadata IgriscaMetadata) {
 
         IgriscaMetadataEntity c = em.find(IgriscaMetadataEntity.class, id);
@@ -114,6 +119,7 @@ public class IgriscaMetadataBean {
         return IgriscaMetadataConverter.toDto(updatedIgriscaMetadataEntity);
     }
 
+    @Metered(name = "delete_igrisce")
     public boolean deleteIgriscaMetadata(Integer id) {
 
         IgriscaMetadataEntity IgriscaMetadata = em.find(IgriscaMetadataEntity.class, id);

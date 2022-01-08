@@ -27,6 +27,13 @@ public class DemoResource {
         return Response.status(Response.Status.OK).build();
     }
 
+    @POST
+    @Path("/unbreak")
+    public Response makeHealthy(){
+        restProperties.setBroken(false);
+        return Response.status(Response.Status.OK).build();
+    }
+
     @GET
     @Path("/break")
     public Response getHealth(){
