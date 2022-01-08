@@ -4,17 +4,28 @@ import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
 import org.eclipse.microprofile.metrics.annotation.Metered;
 import org.eclipse.microprofile.metrics.annotation.Timed;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import rso.football.igrisca.lib.IgriscaMetadata;
 import rso.football.igrisca.models.converters.IgriscaMetadataConverter;
 import rso.football.igrisca.models.entities.IgriscaMetadataEntity;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.json.JsonArray;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.ProcessingException;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -25,7 +36,18 @@ public class IgriscaMetadataBean {
     
     @Inject
     private EntityManager em;
-    
+
+    private Client httpClient;
+
+    @PostConstruct
+    private void init() {
+        String uniqueID = UUID.randomUUID().toString();
+        log.info("Inicializacija zrna: " + IgriscaMetadata.class.getSimpleName() + " id: " + uniqueID);
+
+        httpClient = ClientBuilder.newClient();
+    }
+
+
     public List<IgriscaMetadata> getIgriscaMetadata(){
         TypedQuery<IgriscaMetadataEntity> query = em.createNamedQuery(
                 "IgriscaMetadataEntity.getAll", IgriscaMetadataEntity.class);
@@ -93,6 +115,85 @@ public class IgriscaMetadataBean {
         }
 
         return IgriscaMetadataConverter.toDto(IgriscaMetadataEntity);
+    }
+
+    public String getSlikaIgriscaString(Integer igriscaMetadataId){
+        String slika = null;
+        try {
+            slika = getSlikaIgrisca(igriscaMetadataId);
+            if (slika == null || slika.length() < 80){
+                slika = getSlikaIgrisca2(igriscaMetadataId);
+            }
+            slika = slika.replace("jsonFlickrApi(", "");
+            slika = slika.substring(0, slika.length()-1);
+
+            JSONObject jsonObjectSlike = new JSONObject(slika);
+            JSONObject all_photos = jsonObjectSlike.getJSONObject("photos");
+//            System.out.println(all_photos);
+            JSONArray slike = all_photos.getJSONArray("photo");
+            if (slike.length() == 0){
+                return null;
+            }
+            JSONObject prva_slika = slike.getJSONObject(0);
+            String url = "https://live.staticflickr.com/"+prva_slika.getString("server").toString()+"/"+prva_slika.getString("id").toString()+"_"+prva_slika.getString("secret").toString()+".jpg";
+            System.out.println(url);
+            String returnSlika = "{\"server\":"+prva_slika.getString("server").toString()+", \"idSlike\":"+prva_slika.getString("id").toString()+", \"secret\":\""+prva_slika.getString("secret").toString()+"\"}";
+            System.out.println(returnSlika);
+            return returnSlika;
+
+        }catch (JSONException err){
+            log.info("Error" + err.toString());
+        }
+        return null;
+    }
+
+    public String getSlikaIgrisca2(Integer igriscaMetadataId) {
+        IgriscaMetadataEntity igriscaMetadataEntity = em.find(IgriscaMetadataEntity.class, igriscaMetadataId);
+
+        if (igriscaMetadataEntity == null) {
+            throw new NotFoundException();
+        }
+
+        IgriscaMetadata igriscaMetadata = IgriscaMetadataConverter.toDto(igriscaMetadataEntity);
+
+        String apiKey = "5b28d8f7cff4929fef72785ddf0aa9c3";
+        String url = "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key="+apiKey+"&accuracy=16&content_type=1&media=photos&geo_context=1&lat="+igriscaMetadata.getLatitude()+"&lon="+igriscaMetadata.getLongitude()+"&format=json";
+        log.info("url api vreme je " + url);
+        try{
+            return httpClient
+                    .target(url)
+                    .request()
+                    .get(String.class);
+        } catch (WebApplicationException | ProcessingException e){
+            throw new InternalServerErrorException(e);
+        }
+
+    }
+
+    @Metered(name = "get-slika-igrisca")
+    public String getSlikaIgrisca(Integer igriscaMetadataId) {
+        IgriscaMetadataEntity igriscaMetadataEntity = em.find(IgriscaMetadataEntity.class, igriscaMetadataId);
+
+        if (igriscaMetadataEntity == null) {
+            throw new NotFoundException();
+        }
+
+        IgriscaMetadata igriscaMetadata = IgriscaMetadataConverter.toDto(igriscaMetadataEntity);
+
+        String apiKey = "5b28d8f7cff4929fef72785ddf0aa9c3";
+        String name = igriscaMetadata.getName();
+        name = name.replace(" ", "+");
+        String url = "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key="+apiKey+"&text="+name+"&accuracy=16&content_type=1&media=photos&geo_context=1&lat="+igriscaMetadata.getLatitude()+"&lon="+igriscaMetadata.getLongitude()+"&format=json";
+        log.info("url api vreme je " + url);
+        try{
+            return httpClient
+                    .target(url)
+                    .request()
+                    .get(String.class);
+        } catch (WebApplicationException | ProcessingException e){
+            throw new InternalServerErrorException(e);
+        }
+
     }
 
     @Metered(name = "update_igrisce")

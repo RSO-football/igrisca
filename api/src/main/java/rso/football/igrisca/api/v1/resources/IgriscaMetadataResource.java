@@ -10,11 +10,13 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
+import org.json.XML;
 import rso.football.igrisca.lib.IgriscaMetadata;
 import rso.football.igrisca.services.beans.IgriscaMetadataBean;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.json.Json;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -89,6 +91,22 @@ public class IgriscaMetadataResource {
         return Response.status(Response.Status.OK).entity(igriscaMetadata).build();
     }
 
+    @Operation(description = "Get slika for one igrisce.", summary = "Get slika igrisca")
+    @APIResponses({
+            @APIResponse(responseCode = "200",
+                    description = "Slika",
+                    headers = {@Header(name = "X-Total-Count", description = "Silka")}
+            )})
+    @GET
+    @Path("/{igriscaMetadataId}/slika")
+    public Response getSlikaIgrisca(@PathParam("igriscaMetadataId") Integer igriscaMetadataId) {
+        //vracaj mogoce tukaj url raje
+        String slika = igriscaMetadataBean.getSlikaIgriscaString(igriscaMetadataId);
+
+
+        return Response.status(Response.Status.OK).entity(slika).build();
+    }
+
     @Operation(description = "Add igrisce metadata.", summary = "Add metadata")
     @APIResponses({
             @APIResponse(responseCode = "201",
@@ -108,7 +126,6 @@ public class IgriscaMetadataResource {
         else {
             igriscaMetadata = igriscaMetadataBean.createIgriscaMetadata(igriscaMetadata);
         }
-
         return Response.status(Response.Status.CREATED).entity(igriscaMetadata).build();
 
     }
