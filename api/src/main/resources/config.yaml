@@ -9,7 +9,7 @@ kumuluzee:
         allow-origin: "http://kumuluz.com"
         allow-subdomains: false
   server:
-    base-url: http://40.76.175.239:8080
+    base-url: http://20.85.139.182:8080
     http:
       port: 8080
   datasources:
