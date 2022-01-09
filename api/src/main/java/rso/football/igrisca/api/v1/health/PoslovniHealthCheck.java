@@ -27,7 +27,7 @@ public class PoslovniHealthCheck implements HealthCheck {
                 return HealthCheckResponse.named(PoslovniHealthCheck.class.getSimpleName()).up().build();
             }
         } catch (Exception e){
-            LOG.severe(e.getMessage());
+            LOG.info(e.getMessage());
         }
         return HealthCheckResponse.named(PoslovniHealthCheck.class.getSimpleName()).down().build();
     }

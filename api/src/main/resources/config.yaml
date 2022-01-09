@@ -25,7 +25,6 @@ kumuluzee:
         threshold: 100000000
       http-health-check:
         - connection-url: https://github.com/RSO-football
-        - connection-url: http://52.151.211.52:8082/v1/rezervacije
     metrics:
       web-instrumentation:
         - name: igrisca-endpoint
