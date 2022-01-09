@@ -31,6 +31,9 @@
         <kumuluzee-graphql.version>1.1.0</kumuluzee-graphql.version>
         <aws-java-sdk.version>1.12.120</aws-java-sdk.version>
 
+        <kumuluzee-logs.version>1.4.2</kumuluzee-logs.version>
+        <kumuluzee-fault-tolerance.version>2.1.1</kumuluzee-fault-tolerance.version>
+
         <postgresql.version>42.3.0</postgresql.version>
     </properties>
 
@@ -108,6 +111,18 @@
                 <groupId>com.amazonaws</groupId>
                 <artifactId>aws-java-sdk-rekognition</artifactId>
                 <version>${aws-java-sdk.version}</version>
+            </dependency>
+
+            <dependency>
+                <artifactId>kumuluzee-logs-log4j2</artifactId>
+                <groupId>com.kumuluz.ee.logs</groupId>
+                <version>${kumuluzee-logs.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kumuluz.ee.fault.tolerance</groupId>
+                <artifactId>kumuluzee-fault-tolerance-smallrye</artifactId>
+                <version>${kumuluzee-fault-tolerance.version}</version>
             </dependency>
 
             <dependency>
