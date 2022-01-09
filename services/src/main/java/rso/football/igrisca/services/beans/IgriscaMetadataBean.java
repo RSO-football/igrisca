@@ -24,7 +24,9 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.UriInfo;
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 import java.util.UUID;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -59,7 +61,6 @@ public class IgriscaMetadataBean {
 
     @Timed(name = "get_igrisca_metadata_filter")
     public List<IgriscaMetadata> getIgriscaMetadataFilter(UriInfo uriInfo) {
-
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery()).defaultOffset(0)
                 .build();
 

@@ -13,7 +13,7 @@ import javax.ws.rs.core.Application;
 @OpenAPIDefinition(info = @Info(title = "Igrisca API", version = "v1",
         contact = @Contact(email = "rb2600@student.uni-lj.si"),
         license = @License(name = "dev"), description = "API for managing igrisca metadata."),
-        servers = @Server(url = "http://localhost:8080/"))
+        servers = @Server(url = "http://40.76.175.239:8080/"))
 @ApplicationPath("/v1")
 public class IgriscaMetadataApplication extends Application {
 
