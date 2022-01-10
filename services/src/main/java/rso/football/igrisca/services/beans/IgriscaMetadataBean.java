@@ -3,6 +3,7 @@ package rso.football.igrisca.services.beans;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
 import org.eclipse.microprofile.metrics.annotation.Metered;
+import org.eclipse.microprofile.metrics.annotation.SimplyTimed;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -83,7 +84,7 @@ public class IgriscaMetadataBean {
         return result;
     }
 
-    @Metered(name = "get-one-igrisce")
+    @SimplyTimed(name = "get-one-igrisce")
     public IgriscaMetadata getIgriscaMetadata(Integer id) {
 
         IgriscaMetadataEntity IgriscaMetadataEntity = em.find(IgriscaMetadataEntity.class, id);
